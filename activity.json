@@ -1,8 +1,8 @@
 {
-  "name": "sms",
+  "name": "Twilio",
   "version": "0.0.1",
   "type": "flogo:activity",
-  "ref": "github.com/DipeshTest/twilio/twiliosms",
+  "ref": "github.com/DipeshTest/twiliosms",
   "description": "activity description",
   "author": "Dipesh",
   "inputs":[
