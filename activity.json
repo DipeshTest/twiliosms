@@ -1,0 +1,65 @@
+{
+  "name": "sms",
+  "version": "0.0.1",
+  "type": "flogo:activity",
+  "ref": "github.com/DipeshTest/twilio/twiliosms",
+  "description": "activity description",
+  "author": "Dipesh",
+  "inputs":[
+    {
+		"name": "accountSid",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "authToken",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "urlString",
+		"type": "string",
+    "required": true
+	},
+  {
+		"name": "method",
+		"type": "string",
+    "allowed": [
+        "Send SMS",
+        "Retrive Recipients"
+      ],
+      "value": "Send SMS",
+      "required": true
+	},
+	{
+		"name": "messageBody",
+		"type": "string"
+	},
+	{
+		"name": "to",
+		"type": "string"
+	},
+	{
+		"name": "from",
+		"type": "string"
+	}
+  ],
+  "outputs": [
+    {
+      "name": "statusCode",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+	{
+      "name": "message",
+      "type": "string"
+    },
+	{
+      "name": "failedNumbers",
+      "type": "string"
+    }
+  ]
+}
