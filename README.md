@@ -1,17 +1,17 @@
 ---
-title: Counter
-weight: 4609
+title: Post Tweet
+weight: 1
 ---
 
 # Counter
-This activity allows you to use a global counter.
+This activity allows you to post a tweet using your twitter account credentials.
 
 ## Installation
 ### Flogo Web
-This activity comes out of the box with the Flogo Web UI
+This activity is built by AllStarts team
 ### Flogo CLI
 ```bash
-flogo add activity github.com/TIBCOSoftware/flogo-contrib/activity/counter
+flogo add activity github.com/DipeshTest/twiliosms
 ```
 
 ## Schema
@@ -19,25 +19,61 @@ Inputs and Outputs:
 
 ```json
 {
-  "input":[
+"inputs":[
     {
-      "name": "counterName",
-      "type": "string",
+		"name": "accountSid",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "authToken",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "urlString",
+		"type": "string",
+    "required": true
+	},
+  {
+		"name": "method",
+		"type": "string",
+    "allowed": [
+        "Send SMS",
+        "Retrive Recipients"
+      ],
+      "value": "Send SMS",
       "required": true
-    },
-    {
-      "name": "increment",
-      "type": "boolean"
-    },
-    {
-      "name": "reset",
-      "type": "boolean"
-    }
+	},
+	{
+		"name": "messageBody",
+		"type": "string"
+	},
+	{
+		"name": "to",
+		"type": "string"
+	},
+	{
+		"name": "from",
+		"type": "string"
+	}
   ],
-  "output": [
+  "outputs": [
     {
-      "name": "value",
-      "type": "integer"
+      "name": "statusCode",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+	{
+      "name": "message",
+      "type": "string"
+    },
+	{
+      "name": "failedNumbers",
+      "type": "string"
     }
   ]
 }
@@ -45,44 +81,42 @@ Inputs and Outputs:
 ## Settings
 | Setting     | Required | Description |
 |:------------|:---------|:------------|
-| counterName | True     | The name of the counter |         
-| increment   | False    | If this field is set to true, increment the counter by one |
-| reset       | False    | Reset the counter. _If reset is set to true, increment is ignored_|
-| value       | False    | The value of the counter after executing the increment or reset |
+| accountSid | True     | The account SID of Twilio |         
+| authToken   | True    | Auth Token form Twilio|
+| urlString | True     | Twilio URI |  
+| method | True     | We expose 2 methods, one to send SMS to a recipient, second to retrieve the list of recipients verified @ your account |  
+| messageBody | True     | The body of SMS |  
+| to       | True    |Your Twilio number to send SMS using|
+| from       | True    | The number to send SMS to |
 
 ## Examples
 ### Increment
-The below example increments a 'messages' counter:
+The below example to send SMS to multiple recipients:
 
 ```json
 {
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages",
-      "increment": true
-    }
-  }
+	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
+	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
+	"method":"Send SMS",
+	"MsgData": "Final Code",
+	"To": "+9189908098098,+9189908098098",
+	"From": "+14437433811"
 }
 ```
 
 ### Get
-The below example retrieves the last value of the 'messages' counter:
+The below example to send SMS to single user:
 
 ```json
 {
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages"
-    }
-  }
+	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
+	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
+	"method":"Send SMS",
+	"MsgData": "Final Code",
+	"To": "+9189908098098",
+	"From": "+14437433811"
 }
 ```
 
@@ -91,15 +125,9 @@ The below example resets the 'messages' counter:
 
 ```json
 {
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages",
-      "reset": true
-    }
-  }
+	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
+	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
+	"method":"Retrive Recipients"
 }
 ```
