@@ -121,7 +121,7 @@ The below example to send SMS to single user:
 ```
 
 ### Retrive Recipients
-The below example resets the 'messages' counter:
+The below example retrives the list of verified recipients:
 
 ```json
 {
