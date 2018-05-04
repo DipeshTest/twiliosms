@@ -1,5 +1,5 @@
 ---
-title: Post Tweet
+title: Send SMS
 weight: 1
 ---
 
