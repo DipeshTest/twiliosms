@@ -90,43 +90,43 @@ Inputs and Outputs:
 | from       | True    | The number to send SMS to |
 
 ## Examples
-### Increment
+### Send SMS
 The below example to send SMS to multiple recipients:
 
 ```json
 {
-	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
-	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"AccountSid": "AC8112820c2969c0b9ba6",
+	"AuthToken": "f2542c88dbfb58c494e642bf1",
 	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
 	"method":"Send SMS",
 	"MsgData": "Final Code",
 	"To": "+9189908098098,+9189908098098",
-	"From": "+14437433811"
+	"From": "+14437433999"
 }
 ```
 
-### Get
+### Send SMS
 The below example to send SMS to single user:
 
 ```json
 {
-	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
-	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"AccountSid": "AC8112820c2969c0b9",
+	"AuthToken": "f2542c88dbfb58c49",
 	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
 	"method":"Send SMS",
 	"MsgData": "Final Code",
 	"To": "+9189908098098",
-	"From": "+14437433811"
+	"From": "+14437433999"
 }
 ```
 
-### Reset
+### Retrive Recipients
 The below example resets the 'messages' counter:
 
 ```json
 {
-	"AccountSid": "AC8112820c2969c0b9ba6abac8ee6a4062",
-	"AuthToken": "f2542c88dbfb58c494e642bf10af4140",
+	"AccountSid": "AC8112820c2969c0b9ba6",
+	"AuthToken": "f2542c88dbfb58c494e642b",
 	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
 	"method":"Retrive Recipients"
 }
