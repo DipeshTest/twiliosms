@@ -3,7 +3,7 @@ package twiliosms
 import (
 	"strings"
 
-	"github.com/DipeshTest/twilio/Twilio"
+	"github.com/DipeshTest/allstarsshared/twilio"
 
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
@@ -44,7 +44,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	nums := strings.Split(to, ",")
 
 	if len(strings.TrimSpace(urlStr)) == 0 {
-		//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+		//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 		context.SetOutput("statusCode", "504")
 		context.SetOutput("status", "Failed")
 		context.SetOutput("message", "Url String field is blank")
@@ -52,7 +52,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 		//respond with this
 	} else if len(strings.TrimSpace(accountSid)) == 0 {
-		//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+		//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 		context.SetOutput("statusCode", "505")
 		context.SetOutput("status", "Failed")
 		context.SetOutput("message", "Account SID field is blank")
@@ -60,7 +60,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 		//respond with this
 	} else if len(strings.TrimSpace(authToken)) == 0 {
-		//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+		//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 		context.SetOutput("statusCode", "506")
 		context.SetOutput("status", "Failed")
 		context.SetOutput("message", "Auth Token String field is blank")
@@ -75,7 +75,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 			{
 
 				if len(strings.TrimSpace(smsText)) == 0 {
-					//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+					//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 					context.SetOutput("statusCode", "501")
 					context.SetOutput("status", "Failed")
 					context.SetOutput("message", "SMS body is blank")
@@ -83,7 +83,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 					//respond with this
 				} else if len(strings.TrimSpace(to)) == 0 {
-					//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+					//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 					context.SetOutput("statusCode", "502")
 					context.SetOutput("status", "Failed")
 					context.SetOutput("message", "To field is blank")
@@ -91,7 +91,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 					//respond with this
 				} else if len(strings.TrimSpace(from)) == 0 {
-					//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+					//	fmt.Println(twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
 					context.SetOutput("statusCode", "503")
 					context.SetOutput("status", "Failed")
 					context.SetOutput("message", "From field is blank")
@@ -102,10 +102,10 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 					log.Debugf("The Flogo engine says [%s] to [%s]", accountSid+authToken+urlStr, smsText+to+from)
 
 					jobs := make(chan string)
-					results := make(chan Twilio.ResponseData)
+					results := make(chan twilio.ResponseData)
 					for i, _ := range nums {
-						twilioData := Twilio.Twilio{accountSid, authToken, urlStr + accountSid + "/Messages.json", smsText, nums[i], from}
-						go Twilio.SendSMS(twilioData, jobs, results)
+						twilioData := twilio.Twilio{accountSid, authToken, urlStr + accountSid + "/Messages.json", smsText, nums[i], from}
+						go twilio.SendSMS(twilioData, jobs, results)
 						//fmt.Println("Creating go routinge number", nums[i])
 					}
 					for j, _ := range nums {
@@ -181,8 +181,8 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 		case RETRIVE_LIST:
 			{
-				twilioData := Twilio.Twilio{accountSid, authToken, urlStr + accountSid + "/OutgoingCallerIds.json", "", "", ""}
-				respdata := Twilio.RetrieveRecipientList(twilioData)
+				twilioData := twilio.Twilio{accountSid, authToken, urlStr + accountSid + "/OutgoingCallerIds.json", "", "", ""}
+				respdata := twilio.RetrieveRecipientList(twilioData)
 				if !(respdata.StatusCode >= 200 && respdata.StatusCode < 300) {
 					context.SetOutput("statusCode", "203")
 					context.SetOutput("status", "Failed")
