@@ -4,11 +4,10 @@ weight: 1
 ---
 
 # Twilio
-This activity is used to send SMS and to retrieve the stored contacts for a user account. The activity is built using Twilio API reference https://www.twilio.com/docs/usage/api
+This activity is used to send SMS and to retrieve the stored contacts for a user account. The activity is built using Twilio API reference https://www.twilio.com/docs/usage/api. This activity is built by Team AllStars
 
 ## Installation
-### Flogo Web
-This activity is built by Team AllStars
+
 ### Flogo CLI
 ```bash
 flogo install github.com/DipeshTest/twiliosms
