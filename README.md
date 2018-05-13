@@ -1,17 +1,17 @@
 ---
-title: Send SMS
+title: Twilio 
 weight: 1
 ---
 
-# Counter
-This activity allows you to post a tweet using your twitter account credentials, the activity is built using Twilio API reference https://www.twilio.com/docs/usage/api
+# Twilio
+This activity is used to send SMS and to retrieve the stored contacts for a user account. The activity is built using Twilio API reference https://www.twilio.com/docs/usage/api
 
 ## Installation
 ### Flogo Web
-This activity is built by AllStarts team
+This activity is built by Team AllStars
 ### Flogo CLI
 ```bash
-flogo add activity github.com/DipeshTest/twiliosms
+flogo install github.com/DipeshTest/twiliosms
 ```
 
 ## Schema
@@ -23,27 +23,27 @@ Inputs and Outputs:
     {
 		"name": "accountSid",
 		"type": "string",
-    "required": true
+		"required": true
 	},
 	{
 		"name": "authToken",
 		"type": "string",
-    "required": true
+		"required": true
 	},
 	{
 		"name": "urlString",
 		"type": "string",
-    "required": true
+		"required": true
 	},
   {
 		"name": "method",
 		"type": "string",
-    "allowed": [
-        "Send SMS",
-        "Retrive Recipients"
-      ],
-      "value": "Send SMS",
-      "required": true
+		"allowed": [
+			"Send SMS",
+			"Retrive Recipients"
+		 ],
+		"value": "Send SMS",
+		"required": true
 	},
 	{
 		"name": "messageBody",
@@ -60,20 +60,20 @@ Inputs and Outputs:
   ],
   "outputs": [
     {
-      "name": "statusCode",
-      "type": "string"
+		"name": "statusCode",
+		"type": "string"
     },
     {
-      "name": "status",
-      "type": "string"
+		"name": "status",
+		"type": "string"
     },
 	{
-      "name": "message",
-      "type": "string"
+		"name": "message",
+		"type": "string"
     },
 	{
-      "name": "failedNumbers",
-      "type": "string"
+		"name": "failedNumbers",
+		"type": "string"
     }
   ]
 }
@@ -84,53 +84,13 @@ Inputs and Outputs:
 | accountSid | True     | The account SID of Twilio |         
 | authToken   | True    | Auth Token form Twilio|
 | urlString | True     | Twilio URI, eg : https://api.twilio.com/2010-04-01/Accounts/ |  
-| method | True     | We expose 2 methods, one to send SMS to a recipient, second to retrieve the list of recipients verified @ your account , the response for the retrieve list will be a comma seperated list of values which can be used to directly send to a twilio sms activity to send smses to multiple recipients|  
+| method | True     | We expose 2 methods, one to send SMS to a recipient, second to retrieve the list of recipients verified @ your account, the response for the retrieve list will be a comma seperated list of values which can be used to directly send to a twilio sms activity to send smses to multiple recipients|  
 | messageBody | True     | The body of SMS, limited to 1600 characters|  
 | to       | True    |The number to send SMS to,the destination phone number for SMS/MMS or a Channel user address for other 3rd party channels. Destination phone numbers should be formatted with a '+' and country code e.g., +16175551212 (E.164 format).|
-| from       | True    | Your Twilio number to send SMS using.A Twilio phone number (in E.164 format), alphanumeric sender ID or a Channel Endpoint address enabled for the type of message you wish to send. Phone numbers or short codes purchased from Twilio work here. You cannot (for example) spoof messages from your own cell phone number  |
+| from       | True    | Your Twilio number to send SMS using.A Twilio phone number (in E.164 format), alphanumeric sender ID or a Channel Endpoint address enabled for the type of message you wish to send. Phone numbers or short codes purchased from Twilio work here. You cannot (for example) spoof messages from your own cell phone number.  |
 
 ## Examples
-### Send SMS
-The below example to send SMS to multiple recipients:
-
-```json
-{
-	"AccountSid": "AC8112820c2969c0b9ba6",
-	"AuthToken": "f2542c88dbfb58c494e642bf1",
-	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
-	"method":"Send SMS",
-	"MsgData": "Final Code",
-	"To": "+9189908098098,+9189908098098",
-	"From": "+14437433999"
-}
-```
-
-### Send SMS
-The below example to send SMS to single user:
-
-```json
-{
-	"AccountSid": "AC8112820c2969c0b9",
-	"AuthToken": "f2542c88dbfb58c49",
-	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
-	"method":"Send SMS",
-	"MsgData": "Final Code",
-	"To": "+9189908098098",
-	"From": "+14437433999"
-}
-```
-
-### Retrive Recipients
-The below example retrives the list of verified recipients:
-
-```json
-{
-	"AccountSid": "AC8112820c2969c0b9ba6",
-	"AuthToken": "f2542c88dbfb58c494e642b",
-	"UrlString": "https://api.twilio.com/2010-04-01/Accounts/",
-	"method":"Retrive Recipients"
-}
-```
+Please refer activity_test.go
 
 ## Response Codes
 ### Retrieve List
